@@ -3,7 +3,9 @@ package my.spring.demo;
 import lombok.SneakyThrows;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -11,9 +13,13 @@ public class ObjectFactory {
     private static ObjectFactory instance;
     private Map<Class, Class> map = new HashMap<>();
 
+    private List<ObjectConfigurator> configurators = new ArrayList<>();
+
     public ObjectFactory() {
         map.put(Speaker.class, ConsoleSpeaker.class);
         map.put(Cleaner.class, CleanImpl.class);
+
+        configurators.add(new InjectRandomIntObjectConfigurator());
     }
 
     public static ObjectFactory getInstance() {
@@ -22,21 +28,21 @@ public class ObjectFactory {
 
     @SneakyThrows
     public <T> T createObject(Class<T> type) {
-        if (!type.isInterface()) {
-            return type.newInstance();
+        Class<T> classToCreate = type;
+        if (type.isInterface()) {
+            classToCreate = map.get(type);
         }
-        T t = (T) map.get(type).newInstance();
+        T t = (T) classToCreate.newInstance();
 
-        //
-        for (Field field : t.getClass().getDeclaredFields()) {
-            InjectRandomInt annotation = field.getAnnotation(InjectRandomInt.class);
-            if (annotation != null) {
-                field.setAccessible(true);
-                field.set(t, ThreadLocalRandom.current().nextInt(annotation.min(), annotation.max()));
-            }
-        }
+        configure(t);
 
         return t;
+    }
+
+    private <T> void configure(T t) {
+        for (ObjectConfigurator configurator : configurators) {
+            configurator.configure(t);
+        }
     }
 
 }
