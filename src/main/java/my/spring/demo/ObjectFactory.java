@@ -15,6 +15,7 @@ public class ObjectFactory {
     private Config config = JavaConfig.getInstance();
 
     private List<ObjectConfigurator> configurators = new ArrayList<>();
+    private List<ProxyConfigurator> proxyConfigurators = new ArrayList<>();
 
     @SneakyThrows
     public ObjectFactory() {
@@ -22,6 +23,9 @@ public class ObjectFactory {
 
         for (Class<? extends ObjectConfigurator> configurator : scanner.getSubTypesOf(ObjectConfigurator.class)) {
             configurators.add(configurator.newInstance());
+        }
+        for (Class<? extends ProxyConfigurator> proxyConf : scanner.getSubTypesOf(ProxyConfigurator.class)) {
+            proxyConfigurators.add(proxyConf.newInstance());
         }
     }
 
@@ -34,7 +38,15 @@ public class ObjectFactory {
         T t = getClassInstance(type);
         configure(t);
         callPostConstruct(t);
+        t = wrapWithProxyIfNeeded(t);
 
+        return t;
+    }
+
+    private <T> T wrapWithProxyIfNeeded(T t) {
+        for (ProxyConfigurator proxyConfigurator : proxyConfigurators) {
+            t = proxyConfigurator.wrapWithProxy(t);
+        }
         return t;
     }
 
