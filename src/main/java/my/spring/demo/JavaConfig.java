@@ -15,8 +15,7 @@ public class JavaConfig implements Config {
     }
 
     public JavaConfig() {
-        map.put(Speaker.class, PopupSpeaker.class);
-        map.put(Cleaner.class, CleanImpl.class);
+        map.put(Speaker.class, ConsoleSpeaker.class);
     }
 
     @Override
