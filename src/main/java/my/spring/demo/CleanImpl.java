@@ -10,4 +10,9 @@ public class CleanImpl implements Cleaner {
             System.out.println("VVVVVVvvvvvvvvv");
         }
     }
+
+    @Override
+    public String getName() {
+        return "Repeat cleaner v.0.0."+repeat;
+    }
 }
