@@ -1,5 +1,6 @@
 package my.spring.demo;
 
+@LogPerformance
 public class CleanImpl implements Cleaner {
     @InjectRandomInt(min = 2, max = 5)
     private Integer repeat;
