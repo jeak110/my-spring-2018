@@ -1,24 +1,25 @@
 package my.spring.demo;
 
 import lombok.SneakyThrows;
+import org.reflections.Reflections;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ObjectFactory {
     private static ObjectFactory instance;
-    private Map<Class, Class> map = new HashMap<>();
+    private Reflections scanner;
+    private Config config = JavaConfig.getInstance();
 
     private List<ObjectConfigurator> configurators = new ArrayList<>();
 
+    @SneakyThrows
     public ObjectFactory() {
-        map.put(Speaker.class, ConsoleSpeaker.class);
-        map.put(Cleaner.class, CleanImpl.class);
+        scanner = new Reflections(config.getPackagesToScan());
 
-        configurators.add(new InjectRandomIntObjectConfigurator());
-        configurators.add(new InjectByTypeObjectConfigurator());
+        for (Class<? extends ObjectConfigurator> configurator : scanner.getSubTypesOf(ObjectConfigurator.class)) {
+            configurators.add(configurator.newInstance());
+        }
     }
 
     public static ObjectFactory getInstance() {
@@ -27,15 +28,15 @@ public class ObjectFactory {
 
     @SneakyThrows
     public <T> T createObject(Class<T> type) {
-        Class<T> classToCreate = type;
-        if (type.isInterface()) {
-            classToCreate = map.get(type);
-        }
-        T t = (T) classToCreate.newInstance();
-
+        T t = getClassInstance(type);
         configure(t);
 
         return t;
+    }
+
+    private <T> T getClassInstance(Class<T> type) throws InstantiationException, IllegalAccessException {
+        Class<T> classToCreate = JavaConfig.getInstance().getClassImpl(type);
+        return (T) classToCreate.newInstance();
     }
 
     private <T> void configure(T t) {
