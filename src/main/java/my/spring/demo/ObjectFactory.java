@@ -3,6 +3,9 @@ package my.spring.demo;
 import lombok.SneakyThrows;
 import org.reflections.Reflections;
 
+import javax.annotation.PostConstruct;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -31,8 +34,17 @@ public class ObjectFactory {
     public <T> T createObject(Class<T> type) {
         T t = getClassInstance(type);
         configure(t);
+        callPostConstruct(t);
 
         return t;
+    }
+
+    private <T> void callPostConstruct(T t) throws IllegalAccessException, InvocationTargetException {
+        for (Method method : t.getClass().getDeclaredMethods()) {
+            if (method.isAnnotationPresent(PostConstruct.class)) {
+                method.invoke(t);
+            }
+        }
     }
 
     private <T> T getClassInstance(Class<T> type) throws InstantiationException, IllegalAccessException {
