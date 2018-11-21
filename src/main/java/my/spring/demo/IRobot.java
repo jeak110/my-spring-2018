@@ -2,21 +2,24 @@ package my.spring.demo;
 
 import javax.annotation.PostConstruct;
 
-@LogPerformance
 public class IRobot {
-    @InjectByType
-    private Speaker speaker;
-    @InjectByType
-    private Cleaner cleaner;
+    private ObjectFactory objectFactory = ObjectFactory.getInstance();
 
     @PostConstruct
     public void init() {
+        Speaker speaker = objectFactory.createObject(Speaker.class);
+        Cleaner cleaner = objectFactory.createObject(Cleaner.class);
         speaker.speak(cleaner.getName());
     }
 
     public void clean() {
+        Speaker speaker = objectFactory.createObject(Speaker.class);
         speaker.speak("Начал работу");
+
+        Cleaner cleaner = objectFactory.createObject(Cleaner.class);
         cleaner.clean();
-        speaker.speak("Закончил работу");
+
+        Speaker speaker1 = objectFactory.createObject(Speaker.class);
+        speaker1.speak("Закончил работу");
     }
 }
