@@ -13,6 +13,7 @@ public class ObjectFactory {
     private static ObjectFactory instance;
     private Reflections scanner;
     private Config config = JavaConfig.getInstance();
+    private Context context = Context.getInstance();
 
     private List<ObjectConfigurator> configurators = new ArrayList<>();
     private List<ProxyConfigurator> proxyConfigurators = new ArrayList<>();
@@ -35,12 +36,31 @@ public class ObjectFactory {
 
     @SneakyThrows
     public <T> T createObject(Class<T> type) {
-        T t = getClassInstance(type);
-        Class<T> classToCreate = (Class<T>) t.getClass();
+        Class<T> classToCreate = JavaConfig.getInstance().getClassImpl(type);
+
+        //
+        if (classToCreate == null) {
+            Set<Class<? extends T>> subTypes = scanner.getSubTypesOf(type);
+            if (subTypes.size() == 0 || subTypes.size() > 1) {
+                throw new RuntimeException("Zero or more than one implemention found of " + type.getName());
+            }
+            classToCreate = (Class<T>) subTypes.iterator().next();
+        }
+        //
+
+        if (classToCreate.isAnnotationPresent(Singleton.class) && context.contains(type)) {
+            return (T) context.get(type);
+        }
+
+        T t = (T) classToCreate.newInstance();
 
         configure(t);
         callPostConstruct(t);
         t = wrapWithProxyIfNeeded(t, classToCreate);
+
+        if (classToCreate.isAnnotationPresent(Singleton.class) && !context.contains(type)) {
+            context.put(type, t);
+        }
 
         return t;
     }
@@ -59,19 +79,6 @@ public class ObjectFactory {
                 method.invoke(t);
             }
         }
-    }
-
-    private <T> T getClassInstance(Class<T> type) throws InstantiationException, IllegalAccessException {
-        Class<T> classToCreate = JavaConfig.getInstance().getClassImpl(type);
-        if (classToCreate == null) {
-            Set<Class<? extends T>> subTypes = scanner.getSubTypesOf(type);
-            if (subTypes.size() == 0 || subTypes.size() > 1) {
-                throw new RuntimeException("Zero or more than one implemention found of " + type.getName());
-            }
-            classToCreate = (Class<T>) subTypes.iterator().next();
-        }
-
-        return (T) classToCreate.newInstance();
     }
 
     private <T> void configure(T t) {
