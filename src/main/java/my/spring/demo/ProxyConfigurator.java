@@ -1,5 +1,5 @@
 package my.spring.demo;
 
 public interface ProxyConfigurator {
-    <T> T wrapWithProxy(T t);
+    <T> T wrapWithProxy(T t, Class<T> type);
 }

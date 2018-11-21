@@ -36,16 +36,18 @@ public class ObjectFactory {
     @SneakyThrows
     public <T> T createObject(Class<T> type) {
         T t = getClassInstance(type);
+        Class<T> classToCreate = (Class<T>) t.getClass();
+
         configure(t);
         callPostConstruct(t);
-        t = wrapWithProxyIfNeeded(t);
+        t = wrapWithProxyIfNeeded(t, classToCreate);
 
         return t;
     }
 
-    private <T> T wrapWithProxyIfNeeded(T t) {
+    private <T> T wrapWithProxyIfNeeded(T t, Class<T> type) {
         for (ProxyConfigurator proxyConfigurator : proxyConfigurators) {
-            t = proxyConfigurator.wrapWithProxy(t);
+            t = proxyConfigurator.wrapWithProxy(t, type);
         }
         return t;
     }
