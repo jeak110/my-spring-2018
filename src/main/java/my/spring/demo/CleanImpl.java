@@ -1,10 +1,10 @@
 package my.spring.demo;
 
-@LogPerformance
 public class CleanImpl implements Cleaner {
     @InjectRandomInt(min = 2, max = 5)
     private Integer repeat;
 
+    @LogPerformance
     public void clean() {
         // 100500 lines of logic
         for (int i = 0; i < repeat; i++) {
