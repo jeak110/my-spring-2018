@@ -2,6 +2,7 @@ package my.spring.demo;
 
 import javax.annotation.PostConstruct;
 
+@LogPerformance
 public class IRobot {
     @InjectByType
     private Speaker speaker;
