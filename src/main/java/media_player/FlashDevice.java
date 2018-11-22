@@ -1,15 +1,14 @@
 package media_player;
 
 import com.google.common.collect.Lists;
+import lombok.Setter;
 
 import java.util.List;
 
 public class FlashDevice implements MediaDevice {
 
-    private List<String> mediaFiles = Lists.newArrayList(
-            "StarWars.avi",
-            "Terminator.mov"
-    );
+    @Setter
+    private List<String> mediaFiles;
 
 
     @Override

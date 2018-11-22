@@ -3,5 +3,29 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <bean id="cdDevice" class="media_player.CdDevice">
+        <property name="title" value="Queen"/>
+        <property name="songs">
+            <list>
+                <value>1. Show must go on</value>
+                <value>2. We will rock you</value>
+                <value>3. Bycicle</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="flashDevice" class="media_player.FlashDevice">
+        <property name="mediaFiles">
+            <list>
+                <value>StarWars.avi</value>
+                <value>Terminator.mov</value>
+            </list>
+        </property>
+    </bean>
+
+
+
+
+
 
 </beans>
