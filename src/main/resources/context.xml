@@ -14,9 +14,11 @@
         </constructor-arg>
     </bean>
 
+    <bean id="cdDevice" class="media_player.CdDevice">
+        <property name="disk" ref="queenDisk"/>
+    </bean>
 
-
-    <bean id="flashDevice" class="media_player.FlashDevice" init-method="init">
+    <bean id="flashDevice" class="media_player.FlashDevice">
         <property name="mediaFiles">
             <list>
                 <value>StarWars.avi</value>
@@ -24,22 +26,15 @@
             </list>
         </property>
     </bean>
-    <bean id="cdDevice" class="media_player.CdDevice" init-method="init">
-        <property name="mediaPlayer" ref="mediaPlyer"/>
-        <property name="disk" ref="queenDisk"/>
-    </bean>
 
     <bean id="mediaPlyer" class="media_player.MediaPlayer" init-method="init">
-        <constructor-arg>
+        <property name="mediaDevices">
             <list>
                 <ref bean="cdDevice"/>
                 <ref bean="flashDevice"/>
             </list>
-        </constructor-arg>
+        </property>
     </bean>
-
-
-
 
 
 

@@ -10,13 +10,6 @@ public class FlashDevice implements MediaDevice {
     @Setter
     private List<String> mediaFiles;
 
-    public FlashDevice() {
-        System.out.println("CONSTRUCTOR: FLASH DEVICE");
-    }
-
-    public void init() {
-        System.out.println("INIT: FLASH DEVICE");
-    }
 
     @Override
     public void play() {
