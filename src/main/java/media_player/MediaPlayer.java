@@ -1,31 +1,25 @@
 package media_player;
 
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.util.Map;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.List;
 
 public class MediaPlayer {
 
-    public static void main(String[] args) {
+    @Setter
+    @Getter
+    private List<MediaDevice> mediaDevices;
 
-        ClassPathXmlApplicationContext context =
-                new ClassPathXmlApplicationContext("context.xml");
+    public void init() {
+        System.out.println("Initializing media player, media devices found");
+        mediaDevices.forEach(e-> System.out.println(e.getClass().getName()));
 
+        mediaDevices.forEach(MediaDevice::play);
 
-        // by name
-//        MediaDevice cdDevice = context.getBean("cdDevice", MediaDevice.class);
-//        cdDevice.play();
-
-        // by class type
-        //CdDevice cdDevice = context.getBean(CdDevice.class);
-        //cdDevice.play();
-
-        // by interface type - Exception
-//        MediaDevice cdDevice = context.getBean(MediaDevice.class);
-//        cdDevice.play();
-
-        Map<String, MediaDevice> mediaDevices = context.getBeansOfType(MediaDevice.class);
-        mediaDevices.values().forEach(MediaDevice::play);
     }
+
+
 
 }

@@ -27,6 +27,15 @@
         </property>
     </bean>
 
+    <bean id="mediaPlyer" class="media_player.MediaPlayer" init-method="init">
+        <property name="mediaDevices">
+            <list>
+                <ref bean="cdDevice"/>
+                <ref bean="flashDevice"/>
+            </list>
+        </property>
+    </bean>
+
 
 
 
