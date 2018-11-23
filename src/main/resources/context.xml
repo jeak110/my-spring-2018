@@ -5,6 +5,7 @@
 
 
     <bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>
+    <bean class="media_player.bpp.ShuffleAnnotaionBeanPostProcessor"/>
 
     <bean id="queenDisk" class="media_player.Disk">
         <constructor-arg name="title" value="Queen"/>
