@@ -1,12 +1,15 @@
 package media_player;
 
 import lombok.Setter;
+import media_player.bfpp.DeprecatedClass;
+import media_player.bfpp.QuantumDevice;
 import media_player.bpp.Benchmark;
 import media_player.bpp.Shuffle;
 
 import java.util.List;
 
 
+@DeprecatedClass(newClass = QuantumDevice.class)
 public class CdDevice implements MediaDevice {
 
     private Disk disk;
