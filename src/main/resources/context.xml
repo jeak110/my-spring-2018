@@ -6,6 +6,7 @@
 
     <bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>
     <bean class="media_player.bpp.ShuffleAnnotaionBeanPostProcessor"/>
+    <bean class="media_player.bpp.BenchmarkAnnotationBeanPostProcessor"/>
 
     <bean id="queenDisk" class="media_player.Disk">
         <constructor-arg name="title" value="Queen"/>
@@ -18,7 +19,7 @@
         </constructor-arg>
     </bean>
 
-    <bean id="cdDevice" class="media_player.CdDevice">
+    <bean id="cdDevice" class="media_player.CdDevice" init-method="init">
         <property name="disk" ref="queenDisk"/>
     </bean>
 
