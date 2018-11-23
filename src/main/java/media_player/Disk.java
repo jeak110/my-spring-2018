@@ -2,6 +2,7 @@ package media_player;
 
 import lombok.Getter;
 import lombok.Setter;
+import media_player.bpp.Shuffle;
 
 import java.util.List;
 
