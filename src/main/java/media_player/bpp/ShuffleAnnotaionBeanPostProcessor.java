@@ -3,11 +3,13 @@ package media_player.bpp;
 import lombok.SneakyThrows;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
 import java.util.Collections;
 import java.util.List;
 
+@Component
 public class ShuffleAnnotaionBeanPostProcessor implements BeanPostProcessor {
     @Override
     @SneakyThrows
