@@ -5,12 +5,16 @@ import media_player.bfpp.DeprecatedClass;
 import media_player.bfpp.QuantumDevice;
 import media_player.bpp.Benchmark;
 import media_player.bpp.Shuffle;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 
-@DeprecatedClass(newClass = QuantumDevice.class)
+//@DeprecatedClass(newClass = QuantumDevice.class)
+@Component
 public class CdDevice implements MediaDevice {
+
 
     private Disk disk;
 
@@ -19,7 +23,7 @@ public class CdDevice implements MediaDevice {
         System.out.println("INIT CD DEVICE");
     }
 
-
+    @Autowired
     public void setDisk(Disk disk) {
         this.disk = disk;
         songsOrdered = disk.getSongs();
