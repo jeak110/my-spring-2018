@@ -16,7 +16,7 @@
 
     <!--<context:property-placeholder location="classpath:application.properties"/>-->
 
-    <bean id="queenDisk" class="media_player.Disk">
+    <bean id="queenDisk" class="media_player.DiskFactory">
         <constructor-arg name="title" value="${title}"/>
         <constructor-arg name="songs">
             <list>
