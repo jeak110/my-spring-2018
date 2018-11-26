@@ -18,16 +18,5 @@
 
     <!--<context:property-placeholder location="classpath:application.properties"/>-->
 
-    <bean id="queenDisk" class="media_player.DiskFactory">
-        <constructor-arg name="title" value="${title}"/>
-        <constructor-arg name="songs">
-            <list>
-                <value>1. Show must go on</value>
-                <value>2. We will rock you</value>
-                <value>3. Bycicle</value>
-            </list>
-        </constructor-arg>
-    </bean>
-
 
 </beans>
