@@ -20,7 +20,7 @@ public class MediaPlayer {
     @Setter
     @Getter
     @Autowired
-    @DeviceType(DISK)
+//    @DeviceType(DISK)
     private List<MediaDevice> mediaDevices;
 
     //@PostConstruct
