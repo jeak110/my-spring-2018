@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 
-@Component
+@Component("onlineConnector")
 @Lazy
 public class OnlineChannelsConnector {
 
