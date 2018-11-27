@@ -8,6 +8,7 @@ import media_player.bpp.Shuffle;
 import media_player.qualifiers.DeviceType;
 import media_player.qualifiers.DiskType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -19,6 +20,7 @@ import static media_player.qualifiers.DiskType.Type.CD;
 //@DeprecatedClass(newClass = QuantumDevice.class)
 @Component
 @DeviceType(DISK)
+@Scope("prototype")
 public class CdDevice implements MediaDevice {
 
 

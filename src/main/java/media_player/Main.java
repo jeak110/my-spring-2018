@@ -13,6 +13,12 @@ public class Main {
                 new AnnotationConfigApplicationContext("media_player");
 
 
+        MediaPlayer mediaPlayer1 = context.getBean(MediaPlayer.class);
+        mediaPlayer1.play();
+
+        MediaPlayer mediaPlayer2 = context.getBean(MediaPlayer.class);
+        mediaPlayer2.play();
+
         // by name
 //        MediaDevice cdDevice = context.getBean("cdDevice", MediaDevice.class);
 //        cdDevice.play();
