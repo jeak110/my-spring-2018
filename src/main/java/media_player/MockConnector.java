@@ -9,16 +9,16 @@ import javax.annotation.PostConstruct;
 
 @Component("onlineConnector")
 @Lazy
-@Profile("prod")
-public class OnlineChannelsConnector {
+@Profile("test")
+public class MockConnector {
 
     @PostConstruct
     public void init() {
-        System.out.println("Establishing online channels...");
+        System.out.println("Mock connector...");
 
         OnlineChannels.channels = Lists.newArrayList(
-                "Radio Jazz",
-                "Retro FM"
+                "Radio Mock",
+                "Radio Test"
         );
     }
 
