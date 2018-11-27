@@ -14,7 +14,7 @@ import java.util.List;
 import static media_player.qualifiers.DeviceType.Type.DISK;
 
 @Component
-@Scope("prototype")
+//@Scope("prototype")
 public class MediaPlayer {
 
     @Setter
