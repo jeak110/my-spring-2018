@@ -1,8 +1,5 @@
 package media_player;
 
-import lombok.Setter;
-import media_player.bfpp.DeprecatedClass;
-import media_player.bfpp.QuantumDevice;
 import media_player.bpp.Benchmark;
 import media_player.bpp.Shuffle;
 import media_player.qualifiers.DeviceType;
@@ -17,14 +14,14 @@ import static media_player.qualifiers.DeviceType.Type.DISK;
 //@DeprecatedClass(newClass = QuantumDevice.class)
 @Component
 @DeviceType(DISK)
-public class CdDevice implements MediaDevice {
+public class DvdDevice implements MediaDevice {
 
 
     private Disk disk;
 
     @Benchmark
     public void init() {
-        System.out.println("INIT CD DEVICE");
+        System.out.println("INIT DVD DEVICE");
     }
 
     @Autowired
@@ -39,7 +36,7 @@ public class CdDevice implements MediaDevice {
     @Override
     @Benchmark
     public void play() {
-        System.out.println("-------------- Playing CD -----------");
+        System.out.println("-------------- Playing DVD -----------");
         System.out.println("Title: " + disk.getTitle());
         songsOrdered.forEach(System.out::println);
     }
