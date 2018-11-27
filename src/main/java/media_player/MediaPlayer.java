@@ -21,12 +21,11 @@ public class MediaPlayer {
     @Setter
     @Getter
     @Autowired
-    @DeviceType(DISK)
     private List<MediaDevice> mediaDevices;
 
-    @Autowired
-    @Lazy
-    private OnlineDevice onlineDevice;
+//    @Autowired(required = false)
+//    @Lazy
+//    private OnlineDevice onlineDevice;
 
     //@PostConstruct
     public void play() {
@@ -35,7 +34,9 @@ public class MediaPlayer {
 
         mediaDevices.forEach(MediaDevice::play);
 
-        onlineDevice.play();
+//        if (onlineDevice != null) {
+//            onlineDevice.play();
+//        }
 
     }
 

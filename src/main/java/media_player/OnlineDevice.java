@@ -1,5 +1,6 @@
 package media_player;
 
+import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
@@ -9,6 +10,7 @@ import javax.annotation.PostConstruct;
 @Component
 @DependsOn("onlineConnector")
 @Lazy
+@Conditional(HasInternetCondition.class)
 public class OnlineDevice implements MediaDevice {
 
     @PostConstruct
