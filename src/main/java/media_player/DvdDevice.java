@@ -3,12 +3,14 @@ package media_player;
 import media_player.bpp.Benchmark;
 import media_player.bpp.Shuffle;
 import media_player.qualifiers.DeviceType;
+import media_player.qualifiers.DiskType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 import static media_player.qualifiers.DeviceType.Type.DISK;
+import static media_player.qualifiers.DiskType.Type.DVD;
 
 
 //@DeprecatedClass(newClass = QuantumDevice.class)
@@ -25,6 +27,7 @@ public class DvdDevice implements MediaDevice {
     }
 
     @Autowired
+    @DiskType(DVD)
     public void setDisk(Disk disk) {
         this.disk = disk;
         songsOrdered = disk.getSongs();

@@ -1,10 +1,14 @@
 package media_player;
 
+import media_player.qualifiers.DiskType;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
+
+import static media_player.qualifiers.DiskType.Type.CD;
+import static media_player.qualifiers.DiskType.Type.DVD;
 
 @Configuration
 public class DiskFactory {
@@ -20,10 +24,19 @@ public class DiskFactory {
 //        this.songs = songs;
 //    }
 
-    @Bean("queenDisk")
-    public Disk getDisk() throws Exception {
-        System.out.println("Producing Disk ....");
-        Disk disk = new Disk(title, songs);
+    @Bean
+    @DiskType(CD)
+    public Disk getCdDisk() throws Exception {
+        System.out.println("Producing CD Disk ....");
+        Disk disk = new Disk("CD: " + title, songs);
+        return disk;
+    }
+
+    @Bean
+    @DiskType(DVD)
+    public Disk getDvdDisk() throws Exception {
+        System.out.println("Producing DVD Disk ....");
+        Disk disk = new Disk("DVD: " + title, songs);
         return disk;
     }
 

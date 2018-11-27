@@ -6,12 +6,14 @@ import media_player.bfpp.QuantumDevice;
 import media_player.bpp.Benchmark;
 import media_player.bpp.Shuffle;
 import media_player.qualifiers.DeviceType;
+import media_player.qualifiers.DiskType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 import static media_player.qualifiers.DeviceType.Type.DISK;
+import static media_player.qualifiers.DiskType.Type.CD;
 
 
 //@DeprecatedClass(newClass = QuantumDevice.class)
@@ -28,6 +30,7 @@ public class CdDevice implements MediaDevice {
     }
 
     @Autowired
+    @DiskType(CD)
     public void setDisk(Disk disk) {
         this.disk = disk;
         songsOrdered = disk.getSongs();
