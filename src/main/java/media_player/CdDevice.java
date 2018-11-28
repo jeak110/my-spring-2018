@@ -1,6 +1,7 @@
 package media_player;
 
 import lombok.Setter;
+import lombok.SneakyThrows;
 import media_player.bfpp.DeprecatedClass;
 import media_player.bfpp.QuantumDevice;
 import media_player.bpp.Benchmark;
@@ -46,7 +47,12 @@ public class CdDevice implements MediaDevice {
 
     @Override
     @Benchmark
-    public void play() {
+//    @SneakyThrows
+    public void play() throws MediaPlayerException {
+
+        if (true) {
+            throw new MediaPlayerException("CD device stopped working");
+        }
 
         Disk disk = diskFactory.getObject();
 
