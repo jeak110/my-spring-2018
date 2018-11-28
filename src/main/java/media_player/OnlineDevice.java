@@ -10,7 +10,7 @@ import javax.annotation.PostConstruct;
 @Component
 @DependsOn("onlineConnector")
 @Lazy
-@Conditional(HasInternetCondition.class)
+//@Conditional(HasInternetCondition.class)
 public class OnlineDevice implements MediaDevice {
 
     @PostConstruct

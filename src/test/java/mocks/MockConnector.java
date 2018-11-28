@@ -1,3 +1,5 @@
+package mocks;
+
 import com.google.common.collect.Lists;
 import media_player.OnlineChannels;
 import org.springframework.beans.factory.annotation.Value;
