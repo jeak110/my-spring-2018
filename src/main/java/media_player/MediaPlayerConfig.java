@@ -1,11 +1,12 @@
 package media_player;
 
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
-@Profile("prod")
 @Configuration
 @ComponentScan(basePackages = "media_player")
-@PropertySource("classpath:application.properties")
-@EnableAspectJAutoProxy(proxyTargetClass = true)
+@PropertySource("classpath:media-player-application.properties")
+//@EnableAspectJAutoProxy(proxyTargetClass = true)
 public class MediaPlayerConfig {
 }
